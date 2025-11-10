@@ -4,7 +4,7 @@ public class Star01 {
         Scanner sc = new Scanner(System.in);
         System.out.print("Masukkan nilai n= ");
         int n = sc.nextInt();
-        for (int i = 1; i <= n; i++) {
+        for (int i = 1; i <= n; i+= 2) {
             System.out.print("*");
         }
         sc.close();

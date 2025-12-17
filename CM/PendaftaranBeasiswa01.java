@@ -12,7 +12,7 @@ public class PendaftaranBeasiswa01 {
         int pilihan;
         
         do {
-        System.out.println("=== Sistem Pendaftaran Beasiswa ===");
+        System.out.println("\n=== Sistem Pendaftaran Beasiswa ===");
         System.out.println("1. Tambah Data Pendaftar Beasiswa");
         System.out.println("2. Tampilkan Semua Pendaftar");
         System.out.println("3. Cari Pendaftar Berdasarkan Jenis Beasiswa");
@@ -58,7 +58,7 @@ public class PendaftaranBeasiswa01 {
                         System.out.println("Maaf, penghasilan orang tua melebihi batas maksimal.");
                         break;
                     } else {
-                        System.out.println("Pendaftar berhasil disimpan. " + ++jumlahPendaftar);
+                        System.out.println("\nPendaftar berhasil disimpan. " + ++jumlahPendaftar);
                     }
                 } 
                 break;
@@ -69,11 +69,19 @@ public class PendaftaranBeasiswa01 {
                     System.out.println("Belum ada pendaftar.");
                     break;
                 } else {
-                System.out.println("Total pendaftar: " + jumlahPendaftar);
-                }
+                System.out.println("\n--- Data Seluruh Pendaftar Beasiswa ---");
+                        System.out.printf("| %-4s | %-20s | %-10s | %-4s | %-10s | %-15s |\n",
+                                          "No", "Nama", "NIM", "IPK", "Jenis", "Penghasilan");
+                        System.out.println("--------------------------------------------------------------------------------");
+                        for (int i = 0; i < jumlahPendaftar; i++) {
+                            System.out.printf("| %-4d | %-20s | %-10s | %-4.2f | %-10s | %-15d |\n",
+                                              (i + 1), namaPendaftar[i], nimPendaftar[i], ipkPendaftar[i], jenisBeasiswaPendaftar[i], penghasilanOrtuPendaftar[i]);
+                        }
+                        System.out.println("--------------------------------------------------------------------------------\n");
+                    }
                 break;
             case 3:
-                if (jumlahPendaftar == 1) {
+                if (jumlahPendaftar == 0) {
                     System.out.println("Belum ada pendaftar.");
                     break;
                 } 
@@ -89,12 +97,28 @@ public class PendaftaranBeasiswa01 {
                     if (!cariJenisValid) {
                         System.out.println("Input jenis beasiswa tidak valid. Hanya boleh Reguler, Unggulan, atau Riset.");
                     }
-                    while (!cariJenisValid) {
-                        System.out.println("Tidak ada pendaftar dengan jenis beasiswa tersebut.");
+                } while (!cariJenisValid) ;
+                        System.out.println("\n--- Pendaftar Jenis Beasiswa " + cariJenis + " ---");
+                    boolean ditemukan = false;
+                    System.out.printf("| %-4s | %-20s | %-10s | %-4s | %-10s | %-15s |\n",
+                                      "No", "Nama", "NIM", "IPK", "Jenis", "Penghasilan");
+                    System.out.println("--------------------------------------------------------------------------------");
+                    
+                    int noUrut = 1;
+                    for (int i = 0; i < jumlahPendaftar; i++) {
+                        if (jenisBeasiswaPendaftar[i].equalsIgnoreCase(cariJenis)) {
+                            System.out.printf("| %-4d | %-20s | %-10s | %-4.2f | %-10s | %-15d |\n",
+                                              noUrut++, namaPendaftar[i], nimPendaftar[i], ipkPendaftar[i], jenisBeasiswaPendaftar[i], penghasilanOrtuPendaftar[i]);
+                            ditemukan = true;
+                        }
                     }
-                }
-             while (true);
-                
+                    System.out.println("--------------------------------------------------------------------------------\n");
+
+                if (!ditemukan) {
+                        System.out.println("Tidak ada pendaftar untuk jenis beasiswa " + cariJenis + ".");
+                    }
+                break;
+        
             case 4:
                 String[] jenisBeasiswa = {"Reguler", "Unggulan", "Riset"};
                 double totalIPK;
@@ -119,9 +143,10 @@ public class PendaftaranBeasiswa01 {
                     } else {
                         System.out.println("Tidak ada pendaftar.");
                     }
+                    }
                     System.out.println();
                     break;
-                }
+                
 
             case 5:
                 System.out.println("Terima kasih, program selesai.");
